@@ -20,7 +20,10 @@ jobs:
       env:
           NODE_AUTH_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
 
-    - uses: rlespinasse/github-slug-action@master
-    - name: build and publish docker
-      run: |
-          echo docker build
+    - name: publish to registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: voxeet/react-hello-world
+        username: AWS
+        password: ${{ secrets.ECR_PASSWORD }}
+        registry: 368094550167.dkr.ecr.us-east-1.amazonaws.com
