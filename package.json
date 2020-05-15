@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --hot"
+    "start": "webpack-dev-server --hot",
+    "get-version": "cross-env echo ${npm_package_version}"
   },
   "author": "",
   "license": "ISC",
@@ -22,5 +23,8 @@
   },
   "files": [
     "dist/"
-  ]
+  ],
+  "devDependencies": {
+    "cross-env": "^7.0.2"
+  }
 }

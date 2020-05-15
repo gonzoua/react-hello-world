@@ -5,7 +5,11 @@ on: push
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -13,17 +17,13 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12
-    - name: install dependencies and build
+    - name: install dependencies
       run: |
           yarn install
+    - name: update version
+      run: |
+          yarn run version --no-git-tag-version --new-version $(npm run --silent get-version)-develop
+      shell: pwsh
+    - name: build
+      run: |
           yarn build
-      env:
-          NODE_AUTH_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
-
-    - name: publish to registry
-      uses: elgohr/Publish-Docker-Github-Action@master
-      with:
-        name: voxeet/react-hello-world
-        username: AWS
-        password: ${{ secrets.ECR_PASSWORD }}
-        registry: 368094550167.dkr.ecr.us-east-1.amazonaws.com
