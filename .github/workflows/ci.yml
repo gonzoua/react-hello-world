@@ -22,7 +22,7 @@ jobs:
           yarn install
     - name: update version
       run: |
-          yarn version --no-git-tag-version --new-version "$(npm run --silent get-version)-develop"
+          yarn version --no-git-tag-version --new-version "$(npm run --silent get-version)-$($env:GITHUB_REF.replace('refs/heads/',''))"
           npm run get-version
       shell: pwsh
     - name: build
