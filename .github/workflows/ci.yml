@@ -22,7 +22,7 @@ jobs:
           yarn install
     - name: update version
       run: |
-          yarn run version --no-git-tag-version --new-version $(npm run --silent get-version)-develop
+          yarn version --no-git-tag-version --new-version $(npm run --silent get-version)-develop
       shell: pwsh
     - name: build
       run: |
